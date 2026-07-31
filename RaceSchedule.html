@@ -121,6 +121,7 @@ header h1 {
   transition: border-color 0.2s;
   -webkit-appearance: none;
 }
+.form-group input[type="time"] { color-scheme: dark; }
 .form-group input:focus,
 .form-group select:focus { border-color: #f5c518; box-shadow: 0 0 0 2px rgba(245,197,24,0.12); }
 .form-group select option,
@@ -160,23 +161,35 @@ header h1 {
 .tag-chip .tag-del { cursor: pointer; opacity: 0.7; font-size: 0.7rem; margin-left: 2px; }
 .tag-chip .tag-del:hover { opacity: 1; }
 
+/* ===== Race Card ===== */
 .race-card {
   background: #111; border: 1px solid #2a2a2a;
   border-left: 3px solid #f5c518; border-radius: 10px;
-  padding: 12px 14px; margin-bottom: 10px; transition: all 0.2s; position: relative;
+  padding: 12px 14px; margin-bottom: 10px;
+  transition: all 0.2s; cursor: pointer;
 }
-.race-card:hover { background: #161616; }
-.race-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.race-card:hover { background: #161616; transform: translateX(2px); }
+.race-card:active { transform: scale(0.99); }
+.race-card-header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 8px; margin-bottom: 6px;
+}
 .race-name { font-size: 0.95rem; font-weight: 700; color: #f0f0f0; flex: 1; }
-.bib-badge { background: #f5c518; color: #0d0d0d; font-size: 0.72rem; font-weight: 800; padding: 2px 8px; border-radius: 10px; flex-shrink: 0; }
-.race-card-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 6px; }
+.bib-badge {
+  background: #f5c518; color: #0d0d0d;
+  font-size: 0.72rem; font-weight: 800;
+  padding: 2px 8px; border-radius: 10px; flex-shrink: 0;
+}
+.race-card-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .meta-chip { font-size: 0.72rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
-.meta-day  { background: #1a2a1a; color: #4caf50; border: 1px solid #2a3a2a; }
-.meta-div  { background: #1a1a2a; color: #90caf9; border: 1px solid #2a2a3a; }
-.meta-time { background: #2a1a0a; color: #ff9800; border: 1px solid #3a2a1a; }
-.meta-tag  { background: rgba(245,197,24,0.08); color: #f5c518; border: 1px solid rgba(245,197,24,0.2); }
-.race-card-actions { display: flex; gap: 6px; margin-top: 8px; justify-content: flex-end; }
+.meta-day   { background: #1a2a1a; color: #4caf50;  border: 1px solid #2a3a2a; }
+.meta-start { background: #1a2a2a; color: #26c6da;  border: 1px solid #2a3a3a; }
+.meta-div   { background: #1a1a2a; color: #90caf9;  border: 1px solid #2a2a3a; }
+.meta-time  { background: #2a1a0a; color: #ff9800;  border: 1px solid #3a2a1a; }
+.meta-tag   { background: rgba(245,197,24,0.08); color: #f5c518; border: 1px solid rgba(245,197,24,0.2); }
+.tap-hint   { font-size: 0.65rem; color: #444; margin-top: 6px; text-align: right; }
 
+/* ===== Filter Bar ===== */
 .filter-bar {
   background: #111; border: 1px solid #2a2a2a; border-radius: 10px;
   padding: 12px; margin: 12px; display: flex; flex-direction: column; gap: 10px;
@@ -185,12 +198,13 @@ header h1 {
 .filter-select {
   background: #1a1a1a; border: 1px solid #333; border-radius: 6px;
   padding: 7px 10px; font-size: 0.78rem; color: #f0f0f0; outline: none;
-  font-family: inherit; -webkit-appearance: none; cursor: pointer; flex: 1; min-width: 100px; transition: border-color 0.2s;
+  font-family: inherit; -webkit-appearance: none; cursor: pointer;
+  flex: 1; min-width: 100px; transition: border-color 0.2s;
 }
 .filter-select:focus { border-color: #f5c518; }
 .filter-select option, .filter-select optgroup { background: #1a1a1a; }
 .filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.sort-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.sort-row   { display: flex; gap: 6px; flex-wrap: wrap; }
 .sort-btn {
   background: #1a1a1a; border: 1px solid #333; color: #888;
   padding: 5px 10px; border-radius: 6px; cursor: pointer;
@@ -200,9 +214,13 @@ header h1 {
 .sort-btn:hover  { border-color: #f5c518; color: #f5c518; }
 
 .tag-filter-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
-.tag-filter-chip { background: #1a1a1a; border: 1px solid #333; color: #888; padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; cursor: pointer; transition: all 0.2s; }
+.tag-filter-chip {
+  background: #1a1a1a; border: 1px solid #333; color: #888;
+  padding: 4px 10px; border-radius: 20px; font-size: 0.72rem; cursor: pointer; transition: all 0.2s;
+}
 .tag-filter-chip.active { background: rgba(245,197,24,0.12); border-color: rgba(245,197,24,0.4); color: #f5c518; }
 
+/* ===== Modal 共通 ===== */
 .modal-overlay {
   display: none; position: fixed; inset: 0;
   background: rgba(0,0,0,0.75); z-index: 400;
@@ -215,36 +233,142 @@ header h1 {
   width: 100%; max-width: 560px; max-height: 92vh; overflow-y: auto;
 }
 .modal-drag { width: 40px; height: 4px; background: #333; border-radius: 2px; margin: 0 auto 16px; }
-.modal-title { font-size: 1rem; font-weight: 700; color: #f5c518; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.modal-title { font-size: 1rem; font-weight: 700; color: #f5c518; margin-bottom: 16px; }
 .modal-actions { display: flex; gap: 10px; margin-top: 16px; }
 .modal-actions .btn { flex: 1; }
 
-.empty-state { text-align: center; padding: 40px 20px; color: #555; }
-.empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
-.empty-state p { font-size: 0.85rem; }
+/* ===== Detail Modal ===== */
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #2a2a2a;
+}
+.detail-color-bar {
+  width: 4px;
+  border-radius: 2px;
+  align-self: stretch;
+  flex-shrink: 0;
+  min-height: 40px;
+}
+.detail-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #f0f0f0;
+  flex: 1;
+  line-height: 1.3;
+}
+.detail-bib {
+  background: #f5c518;
+  color: #0d0d0d;
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
 
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.detail-item {
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 12px;
+}
+.detail-item.full { grid-column: 1 / -1; }
+.detail-item-label {
+  font-size: 0.65rem;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.detail-item-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f0f0f0;
+}
+.detail-item-value.highlight {
+  font-size: 1.4rem;
+  color: #ff9800;
+}
+.detail-item-value.start-time {
+  font-size: 1.2rem;
+  color: #26c6da;
+}
+.detail-item-value.empty { color: #444; font-weight: 400; font-style: italic; font-size: 0.85rem; }
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* Quick Result入力（詳細モーダル内） */
+.detail-result-form {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+.detail-result-form label {
+  font-size: 0.68rem;
+  color: #f5c518;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 8px;
+}
+.detail-result-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.detail-result-row input {
+  flex: 1;
+  background: #0d0d0d;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 0.95rem;
+  color: #f0f0f0;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+.detail-result-row input:focus { border-color: #f5c518; }
+
+.detail-actions {
+  display: flex;
+  gap: 10px;
+}
+.detail-actions .btn { flex: 1; }
+
+/* ===== Stats ===== */
 .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px; }
 .stat-card { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 12px 8px; text-align: center; }
-.stat-num { font-size: 1.6rem; font-weight: 800; color: #f5c518; line-height: 1; }
-.stat-label { font-size: 0.65rem; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-num  { font-size: 1.6rem; font-weight: 800; color: #f5c518; line-height: 1; }
+.stat-label{ font-size: 0.65rem; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
 
+/* ===== Schedule ===== */
 .day-group { margin-bottom: 16px; }
 .day-group-header { display: flex; align-items: center; gap: 10px; margin: 0 12px 8px; }
-.day-group-line { flex: 1; height: 1px; background: linear-gradient(to right, #f5c518, transparent); }
+.day-group-line  { flex: 1; height: 1px; background: linear-gradient(to right, #f5c518, transparent); }
 .day-group-label { font-size: 0.8rem; font-weight: 700; color: #f5c518; white-space: nowrap; }
 .day-group-count { font-size: 0.7rem; color: #666; background: #222; padding: 2px 8px; border-radius: 10px; }
 
-.inline-time-form {
-  display: flex; gap: 8px; align-items: center;
-  margin-top: 8px; padding-top: 8px; border-top: 1px solid #2a2a2a;
-}
-.inline-time-form input {
-  flex: 1; background: #111; border: 1px solid #333; border-radius: 6px;
-  padding: 7px 10px; font-size: 0.88rem; color: #f0f0f0; outline: none;
-  font-family: inherit; transition: border-color 0.2s;
-}
-.inline-time-form input:focus { border-color: #f5c518; }
-
+/* ===== Search ===== */
 .search-wrap { position: relative; margin: 12px; }
 .search-wrap input {
   background: #111; border: 1px solid #333; border-radius: 8px;
@@ -255,6 +379,7 @@ header h1 {
 .search-wrap input::placeholder { color: #555; }
 .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #555; font-size: 0.9rem; pointer-events: none; }
 
+/* ===== Notification ===== */
 .notification {
   position: fixed; bottom: 24px; left: 50%;
   transform: translateX(-50%) translateY(80px);
@@ -265,6 +390,7 @@ header h1 {
 }
 .notification.show { transform: translateX(-50%) translateY(0); }
 
+/* ===== Loading ===== */
 .loading-overlay {
   position: fixed; inset: 0; background: #0d0d0d;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -291,30 +417,22 @@ header h1 {
 </head>
 <body>
 
-<!-- Loading -->
 <div class="loading-overlay" id="loading-overlay">
   <div class="loading-spinner"></div>
   <div class="loading-text">Connecting...</div>
 </div>
-
 <div class="notification" id="notification"></div>
 
 <header>
   <span style="font-size:1.3rem;">🏁</span>
   <h1>Race Schedule Manager</h1>
-  <div class="sync-dot" id="sync-dot" title="Sync status"></div>
+  <div class="sync-dot" id="sync-dot"></div>
 </header>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" data-tab="list">
-    <span class="tab-icon">📋</span>List
-  </button>
-  <button class="tab-btn" data-tab="schedule">
-    <span class="tab-icon">📅</span>Schedule
-  </button>
-  <button class="tab-btn" data-tab="add">
-    <span class="tab-icon">➕</span>Add
-  </button>
+  <button class="tab-btn active" data-tab="list"><span class="tab-icon">📋</span>List</button>
+  <button class="tab-btn" data-tab="schedule"><span class="tab-icon">📅</span>Schedule</button>
+  <button class="tab-btn" data-tab="add"><span class="tab-icon">➕</span>Add</button>
 </nav>
 
 <div class="main">
@@ -326,12 +444,10 @@ header h1 {
       <div class="stat-card"><div class="stat-num" id="stat-timed">0</div><div class="stat-label">Timed</div></div>
       <div class="stat-card"><div class="stat-num" id="stat-pending">0</div><div class="stat-label">Pending</div></div>
     </div>
-
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
       <input type="text" id="search-input" placeholder="Search name, bib, tag...">
     </div>
-
     <div class="filter-bar">
       <div>
         <div class="filter-label">Filter</div>
@@ -370,7 +486,8 @@ header h1 {
       <div>
         <div class="filter-label">Sort</div>
         <div class="sort-row">
-          <button class="sort-btn active" data-sort="day">📅 Day</button>
+          <button class="sort-btn active" data-sort="startTime">🕐 Start</button>
+          <button class="sort-btn" data-sort="day">📅 Day</button>
           <button class="sort-btn" data-sort="name">🔤 Name</button>
           <button class="sort-btn" data-sort="bib">🔢 Bib</button>
           <button class="sort-btn" data-sort="time">⏱ Time</button>
@@ -378,8 +495,7 @@ header h1 {
         </div>
       </div>
     </div>
-
-    <div id="race-list" style="padding: 0 12px 80px;"></div>
+    <div id="race-list" style="padding:0 12px 80px;"></div>
   </div>
 
   <!-- SCHEDULE TAB -->
@@ -422,6 +538,10 @@ header h1 {
           </div>
         </div>
         <div class="form-group">
+          <label>Start Time <span style="color:#555;font-weight:400;text-transform:none;">(scheduled)</span></label>
+          <input type="time" id="add-start-time">
+        </div>
+        <div class="form-group">
           <label>Division *</label>
           <select id="add-division">
             <option value="">Select division</option>
@@ -441,7 +561,7 @@ header h1 {
           </select>
         </div>
         <div class="form-group">
-          <label>Race Time <span style="color:#555;font-weight:400;text-transform:none;">(optional)</span></label>
+          <label>Race Time <span style="color:#555;font-weight:400;text-transform:none;">(enter after race)</span></label>
           <input type="text" id="add-time" placeholder="e.g. 1:23.456">
         </div>
         <div class="form-group">
@@ -459,7 +579,57 @@ header h1 {
 
 </div>
 
-<!-- Edit Modal -->
+<!-- ===== Detail Modal ===== -->
+<div class="modal-overlay" id="detail-modal">
+  <div class="modal">
+    <div class="modal-drag"></div>
+
+    <div class="detail-header">
+      <div class="detail-color-bar" id="detail-color-bar"></div>
+      <div class="detail-name" id="detail-name"></div>
+      <div class="detail-bib" id="detail-bib" style="display:none;"></div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="detail-item-label">📅 Day</div>
+        <div class="detail-item-value" id="detail-day"></div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-item-label">🕐 Start Time</div>
+        <div class="detail-item-value start-time" id="detail-start-time"></div>
+      </div>
+      <div class="detail-item full">
+        <div class="detail-item-label">🏷 Division</div>
+        <div class="detail-item-value" id="detail-division"></div>
+      </div>
+      <div class="detail-item full">
+        <div class="detail-item-label">⏱ Race Result</div>
+        <div class="detail-item-value highlight" id="detail-time"></div>
+      </div>
+      <div class="detail-item full" id="detail-tags-wrap" style="display:none;">
+        <div class="detail-item-label">🏷 Tags</div>
+        <div class="detail-tags" id="detail-tags"></div>
+      </div>
+    </div>
+
+    <!-- Quick Result入力 -->
+    <div class="detail-result-form">
+      <label>⏱ Enter / Update Race Result</label>
+      <div class="detail-result-row">
+        <input type="text" id="detail-result-input" placeholder="e.g. 1:23.456">
+        <button class="btn btn-secondary btn-small" id="detail-result-save-btn">Save</button>
+      </div>
+    </div>
+
+    <div class="detail-actions">
+      <button class="btn btn-secondary" id="detail-close-btn">Close</button>
+      <button class="btn btn-primary" id="detail-edit-btn">✏️ Edit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Edit Modal ===== -->
 <div class="modal-overlay" id="edit-modal">
   <div class="modal">
     <div class="modal-drag"></div>
@@ -483,6 +653,10 @@ header h1 {
           <option value="Sun Aug 9">Sun Aug 9</option>
         </select>
       </div>
+    </div>
+    <div class="form-group">
+      <label>Start Time</label>
+      <input type="time" id="edit-start-time">
     </div>
     <div class="form-group">
       <label>Division *</label>
@@ -526,11 +700,10 @@ header h1 {
 </div>
 
 <script type="module">
-import { initializeApp }       from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { initializeApp }  from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot, query }
   from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-// ===== Firebase Init =====
 const firebaseConfig = {
   apiKey:            "AIzaSyBrbbGUmClRqAzajCMIfym0eOAns7YCxMM",
   authDomain:        "raceschedule-eeb7e.firebaseapp.com",
@@ -542,7 +715,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-// ===== Constants =====
 const DAYS = ['Thu Aug 6','Fri Aug 7','Sat Aug 8','Sun Aug 9'];
 const DAY_ORDER = Object.fromEntries(DAYS.map((d,i) => [d,i]));
 const DIV_COLOR = {
@@ -557,72 +729,56 @@ const DIV_COLOR = {
   'Doubles Pro':      '#ffcc80',
 };
 
-// ===== State =====
 let races            = [];
 let editingId        = null;
+let detailId         = null;
 let addTags          = [];
 let editTags         = [];
-let activeSort       = 'day';
+let activeSort       = 'startTime';
 let activeTagFilters = new Set();
 let scheduleDay      = '';
 
-// ===== Sync dot =====
-function setSyncStatus(status) {
-  const dot = document.getElementById('sync-dot');
-  dot.className = 'sync-dot ' + status;
-}
+// ===== Sync =====
+function setSyncStatus(s) { document.getElementById('sync-dot').className = 'sync-dot ' + s; }
 
 // ===== Firestore =====
 async function saveRace(race) {
   setSyncStatus('syncing');
-  try {
-    await setDoc(doc(db, 'races', race.id), race);
-    setSyncStatus('synced');
-  } catch(e) {
-    setSyncStatus('error');
-    notify('❌ Save failed: ' + e.message);
-  }
+  try { await setDoc(doc(db,'races',race.id), race); setSyncStatus('synced'); }
+  catch(e) { setSyncStatus('error'); notify('❌ Save failed: ' + e.message); }
 }
-
 async function deleteRace(id) {
   setSyncStatus('syncing');
-  try {
-    await deleteDoc(doc(db, 'races', id));
-    setSyncStatus('synced');
-  } catch(e) {
-    setSyncStatus('error');
-    notify('❌ Delete failed: ' + e.message);
-  }
+  try { await deleteDoc(doc(db,'races',id)); setSyncStatus('synced'); }
+  catch(e) { setSyncStatus('error'); notify('❌ Delete failed: ' + e.message); }
 }
 
-// リアルタイム同期
-onSnapshot(query(collection(db, 'races')), snap => {
+onSnapshot(query(collection(db,'races')), snap => {
   races = snap.docs.map(d => d.data());
   renderList();
   renderSchedule();
   renderTagFilters();
+  // 詳細モーダルが開いていれば更新
+  if (detailId && document.getElementById('detail-modal').classList.contains('open')) {
+    const updated = races.find(r => r.id === detailId);
+    if (updated) populateDetail(updated);
+  }
   document.getElementById('loading-overlay').style.display = 'none';
   setSyncStatus('synced');
-}, err => {
-  setSyncStatus('error');
-  notify('❌ Connection error');
-  document.getElementById('loading-overlay').style.display = 'none';
-});
+}, () => { setSyncStatus('error'); notify('❌ Connection error'); document.getElementById('loading-overlay').style.display = 'none'; });
 
 // ===== Utils =====
 function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
-function esc(str) {
-  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+function esc(s)  { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function notify(msg) {
   const el = document.getElementById('notification');
-  el.textContent = msg;
-  el.classList.add('show');
+  el.textContent = msg; el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 2200);
 }
 function divColor(div) { return DIV_COLOR[div] || '#90caf9'; }
+function sortKeyStartTime(r) { return (DAY_ORDER[r.day]??9) + ' ' + (r.startTime||'99:99'); }
 
-// ===== Tab Switch =====
+// ===== Tab =====
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -642,7 +798,7 @@ document.querySelectorAll('[data-sort]').forEach(btn => {
   });
 });
 
-// ===== Schedule Day Tabs =====
+// ===== Schedule Day =====
 document.querySelectorAll('[data-day-tab]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('[data-day-tab]').forEach(b => b.classList.remove('active'));
@@ -652,20 +808,16 @@ document.querySelectorAll('[data-day-tab]').forEach(btn => {
   });
 });
 
-// ===== Filter Events =====
+// ===== Filter =====
 document.getElementById('filter-day').addEventListener('change', renderList);
 document.getElementById('filter-division').addEventListener('change', renderList);
 document.getElementById('search-input').addEventListener('input', renderList);
 
-// ===== Tag Filter =====
 function renderTagFilters() {
   const allTags = new Set();
   races.forEach(r => (r.tags||[]).forEach(t => allTags.add(t)));
   const wrap = document.getElementById('tag-filter-wrap');
-  if (allTags.size === 0) {
-    wrap.innerHTML = '<span style="font-size:0.75rem;color:#555;">No tags yet</span>';
-    return;
-  }
+  if (!allTags.size) { wrap.innerHTML = '<span style="font-size:0.75rem;color:#555;">No tags yet</span>'; return; }
   wrap.innerHTML = '';
   [...allTags].sort().forEach(tag => {
     const chip = document.createElement('span');
@@ -673,34 +825,29 @@ function renderTagFilters() {
     chip.textContent = '#' + tag;
     chip.addEventListener('click', () => {
       activeTagFilters.has(tag) ? activeTagFilters.delete(tag) : activeTagFilters.add(tag);
-      renderTagFilters();
-      renderList();
+      renderTagFilters(); renderList();
     });
     wrap.appendChild(chip);
   });
 }
 
-// ===== Get Filtered =====
 function getFiltered() {
-  const dayF  = document.getElementById('filter-day').value;
-  const divF  = document.getElementById('filter-division').value;
-  const query = document.getElementById('search-input').value.trim().toLowerCase();
+  const dayF = document.getElementById('filter-day').value;
+  const divF = document.getElementById('filter-division').value;
+  const q    = document.getElementById('search-input').value.trim().toLowerCase();
   let list = [...races];
-  if (dayF)  list = list.filter(r => r.day === dayF);
-  if (divF)  list = list.filter(r => r.division === divF);
-  if (query) list = list.filter(r =>
-    r.name.toLowerCase().includes(query) ||
-    (r.bib||'').toLowerCase().includes(query) ||
-    (r.tags||[]).some(t => t.toLowerCase().includes(query))
+  if (dayF) list = list.filter(r => r.day === dayF);
+  if (divF) list = list.filter(r => r.division === divF);
+  if (q)    list = list.filter(r =>
+    r.name.toLowerCase().includes(q) ||
+    (r.bib||'').toLowerCase().includes(q) ||
+    (r.tags||[]).some(t => t.toLowerCase().includes(q))
   );
-  if (activeTagFilters.size > 0)
+  if (activeTagFilters.size)
     list = list.filter(r => [...activeTagFilters].every(t => (r.tags||[]).includes(t)));
-
   list.sort((a,b) => {
-    if (activeSort === 'day') {
-      const dc = (DAY_ORDER[a.day]??99) - (DAY_ORDER[b.day]??99);
-      return dc !== 0 ? dc : a.name.localeCompare(b.name);
-    }
+    if (activeSort === 'startTime') return sortKeyStartTime(a).localeCompare(sortKeyStartTime(b));
+    if (activeSort === 'day') { const dc=(DAY_ORDER[a.day]??99)-(DAY_ORDER[b.day]??99); return dc||a.name.localeCompare(b.name); }
     if (activeSort === 'name')     return a.name.localeCompare(b.name);
     if (activeSort === 'bib')      return (a.bib||'').localeCompare(b.bib||'',undefined,{numeric:true});
     if (activeSort === 'division') return (a.division||'').localeCompare(b.division||'');
@@ -710,17 +857,18 @@ function getFiltered() {
   return list;
 }
 
-// ===== Render Card =====
+// ===== Render Card ===== （タップで詳細モーダル）
 function renderCard(race, container) {
   const card  = document.createElement('div');
   card.className = 'race-card';
   const color = divColor(race.division);
   card.style.borderLeftColor = color;
 
-  const tagsHtml = (race.tags||[]).map(t => `<span class="meta-chip meta-tag">#${esc(t)}</span>`).join('');
-  const timeHtml = race.time
+  const tagsHtml      = (race.tags||[]).map(t => `<span class="meta-chip meta-tag">#${esc(t)}</span>`).join('');
+  const startTimeHtml = race.startTime ? `<span class="meta-chip meta-start">🕐 ${esc(race.startTime)}</span>` : '';
+  const timeHtml      = race.time
     ? `<span class="meta-chip meta-time">⏱ ${esc(race.time)}</span>`
-    : `<span style="font-size:0.7rem;color:#555;font-style:italic;">No time yet</span>`;
+    : `<span style="font-size:0.7rem;color:#444;font-style:italic;">No result</span>`;
 
   card.innerHTML = `
     <div class="race-card-header">
@@ -729,68 +877,103 @@ function renderCard(race, container) {
     </div>
     <div class="race-card-meta">
       <span class="meta-chip meta-day">📅 ${esc(race.day||'—')}</span>
+      ${startTimeHtml}
       <span class="meta-chip meta-div" style="color:${color};background:${color}18;border-color:${color}44;">${esc(race.division||'—')}</span>
       ${timeHtml}
       ${tagsHtml}
     </div>
-    <div class="race-card-actions">
-      <button class="btn-icon btn-time-quick" data-id="${race.id}">⏱ Time</button>
-      <button class="btn-icon btn-edit" data-id="${race.id}">✏️ Edit</button>
-    </div>
-    <div class="inline-time-form" id="time-form-${race.id}" style="display:none;">
-      <input type="text" placeholder="e.g. 1:23.456" id="time-input-${race.id}" value="${esc(race.time||'')}">
-      <button class="btn btn-secondary btn-small btn-time-save" data-id="${race.id}">Save</button>
-      <button class="btn-icon btn-time-cancel" data-id="${race.id}">✕</button>
-    </div>
+    <div class="tap-hint">Tap for details →</div>
   `;
 
-  card.querySelector('.btn-time-quick').addEventListener('click', e => {
-    e.stopPropagation();
-    const form = document.getElementById('time-form-' + race.id);
-    const isOpen = form.style.display !== 'none';
-    form.style.display = isOpen ? 'none' : 'flex';
-    if (!isOpen) document.getElementById('time-input-' + race.id).focus();
-  });
-
-  card.querySelector('.btn-time-save').addEventListener('click', async e => {
-    e.stopPropagation();
-    const val = document.getElementById('time-input-' + race.id).value.trim();
-    const target = races.find(r => r.id === race.id);
-    if (target) {
-      target.time = val;
-      await saveRace(target);
-      notify('⏱ Time saved!');
-    }
-  });
-
-  card.querySelector('.btn-time-cancel').addEventListener('click', e => {
-    e.stopPropagation();
-    document.getElementById('time-form-' + race.id).style.display = 'none';
-  });
-
-  const ti = document.getElementById('time-input-' + race.id);
-  if (ti) ti.addEventListener('keydown', e => {
-    if (e.key === 'Enter') card.querySelector('.btn-time-save').click();
-  });
-
-  card.querySelector('.btn-edit').addEventListener('click', e => {
-    e.stopPropagation();
-    openEditModal(race.id);
-  });
-
+  // カード全体タップ → 詳細モーダル
+  card.addEventListener('click', () => openDetailModal(race.id));
   container.appendChild(card);
 }
 
+// ===== Detail Modal =====
+function populateDetail(race) {
+  const color = divColor(race.division);
+  document.getElementById('detail-color-bar').style.background = color;
+  document.getElementById('detail-name').textContent = race.name || '';
+
+  const bibEl = document.getElementById('detail-bib');
+  if (race.bib) { bibEl.textContent = '#' + race.bib; bibEl.style.display = 'block'; }
+  else { bibEl.style.display = 'none'; }
+
+  document.getElementById('detail-day').textContent = race.day || '—';
+
+  const stEl = document.getElementById('detail-start-time');
+  stEl.textContent = race.startTime || '—';
+  stEl.className   = 'detail-item-value' + (race.startTime ? ' start-time' : ' empty');
+
+  const divEl = document.getElementById('detail-division');
+  divEl.textContent = race.division || '—';
+  divEl.style.color = color;
+
+  const timeEl = document.getElementById('detail-time');
+  if (race.time) { timeEl.textContent = race.time; timeEl.className = 'detail-item-value highlight'; }
+  else { timeEl.textContent = 'Not recorded yet'; timeEl.className = 'detail-item-value empty'; }
+
+  // Tags
+  const tagsWrap = document.getElementById('detail-tags-wrap');
+  const tagsEl   = document.getElementById('detail-tags');
+  if (race.tags && race.tags.length) {
+    tagsWrap.style.display = 'block';
+    tagsEl.innerHTML = race.tags.map(t => `<span class="tag-chip">#${esc(t)}</span>`).join('');
+  } else {
+    tagsWrap.style.display = 'none';
+  }
+
+  // Result input に現在値をセット
+  document.getElementById('detail-result-input').value = race.time || '';
+}
+
+function openDetailModal(id) {
+  const race = races.find(r => r.id === id);
+  if (!race) return;
+  detailId = id;
+  populateDetail(race);
+  document.getElementById('detail-modal').classList.add('open');
+}
+
+document.getElementById('detail-close-btn').addEventListener('click', () => {
+  document.getElementById('detail-modal').classList.remove('open');
+});
+document.getElementById('detail-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('detail-modal'))
+    document.getElementById('detail-modal').classList.remove('open');
+});
+
+// 詳細モーダルからResult保存
+document.getElementById('detail-result-save-btn').addEventListener('click', async () => {
+  const val    = document.getElementById('detail-result-input').value.trim();
+  const target = races.find(r => r.id === detailId);
+  if (target) {
+    target.time = val;
+    await saveRace(target);
+    notify('⏱ Result saved!');
+  }
+});
+document.getElementById('detail-result-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('detail-result-save-btn').click();
+});
+
+// 詳細モーダル → Editモーダルへ
+document.getElementById('detail-edit-btn').addEventListener('click', () => {
+  document.getElementById('detail-modal').classList.remove('open');
+  openEditModal(detailId);
+});
+
 // ===== Render List =====
 function renderList() {
-  const list      = getFiltered();
+  const list = getFiltered();
   const container = document.getElementById('race-list');
   container.innerHTML = '';
   document.getElementById('stat-total').textContent   = races.length;
   document.getElementById('stat-timed').textContent   = races.filter(r => r.time).length;
   document.getElementById('stat-pending').textContent = races.filter(r => !r.time).length;
   renderTagFilters();
-  if (list.length === 0) {
+  if (!list.length) {
     container.innerHTML = `<div class="empty-state"><div class="icon">🏁</div><p>No entries found.<br>Tap ➕ Add to register!</p></div>`;
     return;
   }
@@ -805,9 +988,8 @@ function renderSchedule() {
   let hasAny = false;
   days.forEach(day => {
     const dayRaces = races.filter(r => r.day === day).sort((a,b) => {
-      if (a.time && b.time) return a.time.localeCompare(b.time);
-      if (a.time) return -1; if (b.time) return 1;
-      return a.name.localeCompare(b.name);
+      const ta = a.startTime||'99:99', tb = b.startTime||'99:99';
+      return ta !== tb ? ta.localeCompare(tb) : a.name.localeCompare(b.name);
     });
     if (!dayRaces.length) return;
     hasAny = true;
@@ -846,30 +1028,29 @@ function pushAddTag() {
   const input = document.getElementById('add-tag-input');
   const val   = input.value.trim().replace(/\s+/g,'-');
   if (val && !addTags.includes(val)) { addTags.push(val); renderAddTags(); }
-  input.value = ''; input.focus();
+  input.value=''; input.focus();
 }
 document.getElementById('add-tag-btn').addEventListener('click', pushAddTag);
 document.getElementById('add-tag-input').addEventListener('keydown', e => { if(e.key==='Enter'){e.preventDefault();pushAddTag();} });
 
 // ===== Submit Add =====
 document.getElementById('submit-add-btn').addEventListener('click', async () => {
-  const name     = document.getElementById('add-name').value.trim();
-  const bib      = document.getElementById('add-bib').value.trim();
-  const day      = document.getElementById('add-day').value;
-  const division = document.getElementById('add-division').value;
-  const time     = document.getElementById('add-time').value.trim();
+  const name      = document.getElementById('add-name').value.trim();
+  const bib       = document.getElementById('add-bib').value.trim();
+  const day       = document.getElementById('add-day').value;
+  const startTime = document.getElementById('add-start-time').value;
+  const division  = document.getElementById('add-division').value;
+  const time      = document.getElementById('add-time').value.trim();
   if (!name)     { notify('⚠️ Name is required');         return; }
   if (!day)      { notify('⚠️ Please select a day');      return; }
   if (!division) { notify('⚠️ Please select a division'); return; }
-
-  const race = { id:genId(), name, bib, day, division, time:time||'', tags:[...addTags], createdAt:new Date().toISOString() };
-  await saveRace(race);
+  await saveRace({ id:genId(), name, bib, day, startTime:startTime||'', division, time:time||'', tags:[...addTags], createdAt:new Date().toISOString() });
   notify('✅ Entry added!');
   ['add-name','add-bib','add-time'].forEach(id => document.getElementById(id).value='');
   document.getElementById('add-day').value='';
+  document.getElementById('add-start-time').value='';
   document.getElementById('add-division').value='';
-  addTags=[];
-  renderAddTags();
+  addTags=[]; renderAddTags();
 });
 
 // ===== Edit Tags =====
@@ -899,11 +1080,12 @@ function openEditModal(id) {
   if (!race) return;
   editingId = id;
   editTags  = [...(race.tags||[])];
-  document.getElementById('edit-name').value     = race.name     ||'';
-  document.getElementById('edit-bib').value      = race.bib      ||'';
-  document.getElementById('edit-day').value      = race.day      ||'';
-  document.getElementById('edit-division').value = race.division ||'';
-  document.getElementById('edit-time').value     = race.time     ||'';
+  document.getElementById('edit-name').value       = race.name      ||'';
+  document.getElementById('edit-bib').value        = race.bib       ||'';
+  document.getElementById('edit-day').value        = race.day       ||'';
+  document.getElementById('edit-start-time').value = race.startTime ||'';
+  document.getElementById('edit-division').value   = race.division  ||'';
+  document.getElementById('edit-time').value       = race.time      ||'';
   renderEditTags();
   document.getElementById('edit-modal').classList.add('open');
 }
@@ -914,25 +1096,23 @@ document.getElementById('edit-modal').addEventListener('click', e => {
   if (e.target===document.getElementById('edit-modal'))
     document.getElementById('edit-modal').classList.remove('open');
 });
-
 document.getElementById('edit-save-btn').addEventListener('click', async () => {
-  const name     = document.getElementById('edit-name').value.trim();
-  const bib      = document.getElementById('edit-bib').value.trim();
-  const day      = document.getElementById('edit-day').value;
-  const division = document.getElementById('edit-division').value;
-  const time     = document.getElementById('edit-time').value.trim();
+  const name      = document.getElementById('edit-name').value.trim();
+  const bib       = document.getElementById('edit-bib').value.trim();
+  const day       = document.getElementById('edit-day').value;
+  const startTime = document.getElementById('edit-start-time').value;
+  const division  = document.getElementById('edit-division').value;
+  const time      = document.getElementById('edit-time').value.trim();
   if (!name)     { notify('⚠️ Name is required');         return; }
   if (!day)      { notify('⚠️ Please select a day');      return; }
   if (!division) { notify('⚠️ Please select a division'); return; }
   const existing = races.find(r => r.id===editingId);
   if (existing) {
-    const updated = {...existing, name, bib, day, division, time, tags:[...editTags]};
-    await saveRace(updated);
+    await saveRace({...existing, name, bib, day, startTime:startTime||'', division, time, tags:[...editTags]});
     notify('✅ Entry updated!');
     document.getElementById('edit-modal').classList.remove('open');
   }
 });
-
 document.getElementById('edit-delete-btn').addEventListener('click', async () => {
   if (!confirm('Delete this entry?')) return;
   await deleteRace(editingId);
