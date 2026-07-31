@@ -13,7 +13,6 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
 }
-
 header {
   background: linear-gradient(135deg, #1a1a1a, #222);
   border-bottom: 2px solid #f5c518;
@@ -181,7 +180,7 @@ header h1 {
   padding: 2px 8px; border-radius: 10px; flex-shrink: 0;
 }
 .race-card-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.meta-chip { font-size: 0.72rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.meta-chip  { font-size: 0.72rem; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
 .meta-day   { background: #1a2a1a; color: #4caf50;  border: 1px solid #2a3a2a; }
 .meta-start { background: #1a2a2a; color: #26c6da;  border: 1px solid #2a3a3a; }
 .meta-div   { background: #1a1a2a; color: #90caf9;  border: 1px solid #2a2a3a; }
@@ -239,120 +238,33 @@ header h1 {
 
 /* ===== Detail Modal ===== */
 .detail-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #2a2a2a;
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #2a2a2a;
 }
-.detail-color-bar {
-  width: 4px;
-  border-radius: 2px;
-  align-self: stretch;
-  flex-shrink: 0;
-  min-height: 40px;
-}
-.detail-name {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #f0f0f0;
-  flex: 1;
-  line-height: 1.3;
-}
-.detail-bib {
-  background: #f5c518;
-  color: #0d0d0d;
-  font-size: 0.85rem;
-  font-weight: 800;
-  padding: 4px 12px;
-  border-radius: 12px;
-  flex-shrink: 0;
-}
+.detail-color-bar { width: 4px; border-radius: 2px; align-self: stretch; flex-shrink: 0; min-height: 40px; }
+.detail-name { font-size: 1.3rem; font-weight: 800; color: #f0f0f0; flex: 1; line-height: 1.3; }
+.detail-bib { background: #f5c518; color: #0d0d0d; font-size: 0.85rem; font-weight: 800; padding: 4px 12px; border-radius: 12px; flex-shrink: 0; }
 
-.detail-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-.detail-item {
-  background: #111;
-  border: 1px solid #2a2a2a;
-  border-radius: 10px;
-  padding: 12px;
-}
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.detail-item { background: #111; border: 1px solid #2a2a2a; border-radius: 10px; padding: 12px; }
 .detail-item.full { grid-column: 1 / -1; }
-.detail-item-label {
-  font-size: 0.65rem;
-  color: #666;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 6px;
-}
-.detail-item-value {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #f0f0f0;
-}
-.detail-item-value.highlight {
-  font-size: 1.4rem;
-  color: #ff9800;
-}
-.detail-item-value.start-time {
-  font-size: 1.2rem;
-  color: #26c6da;
-}
-.detail-item-value.empty { color: #444; font-weight: 400; font-style: italic; font-size: 0.85rem; }
+.detail-item-label { font-size: 0.65rem; color: #666; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.detail-item-value { font-size: 0.95rem; font-weight: 700; color: #f0f0f0; }
+.detail-item-value.highlight  { font-size: 1.4rem; color: #ff9800; }
+.detail-item-value.start-time { font-size: 1.2rem; color: #26c6da; }
+.detail-item-value.empty      { color: #444; font-weight: 400; font-style: italic; font-size: 0.85rem; }
+.detail-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 
-.detail-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
-}
-
-/* Quick Result入力（詳細モーダル内） */
-.detail-result-form {
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 16px;
-}
-.detail-result-form label {
-  font-size: 0.68rem;
-  color: #f5c518;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  display: block;
-  margin-bottom: 8px;
-}
-.detail-result-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
+.detail-result-form { background: #111; border: 1px solid #333; border-radius: 10px; padding: 12px; margin-bottom: 16px; }
+.detail-result-form label { font-size: 0.68rem; color: #f5c518; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 8px; }
+.detail-result-row { display: flex; gap: 8px; align-items: center; }
 .detail-result-row input {
-  flex: 1;
-  background: #0d0d0d;
-  border: 1px solid #333;
-  border-radius: 6px;
-  padding: 9px 12px;
-  font-size: 0.95rem;
-  color: #f0f0f0;
-  outline: none;
-  font-family: inherit;
-  transition: border-color 0.2s;
+  flex: 1; background: #0d0d0d; border: 1px solid #333; border-radius: 6px;
+  padding: 9px 12px; font-size: 0.95rem; color: #f0f0f0; outline: none;
+  font-family: inherit; transition: border-color 0.2s;
 }
 .detail-result-row input:focus { border-color: #f5c518; }
-
-.detail-actions {
-  display: flex;
-  gap: 10px;
-}
+.detail-actions { display: flex; gap: 10px; }
 .detail-actions .btn { flex: 1; }
 
 /* ===== Stats ===== */
@@ -435,6 +347,25 @@ header h1 {
   <button class="tab-btn" data-tab="add"><span class="tab-icon">➕</span>Add</button>
 </nav>
 
+<!-- Division選択肢（共通テンプレート） -->
+<template id="division-options">
+  <option value="">Select division</option>
+  <optgroup label="── Single ──">
+    <option value="Single Men">Single Men</option>
+    <option value="Single Women">Single Women</option>
+    <option value="Single Pro Men">Single Pro Men</option>
+    <option value="Single Pro Women">Single Pro Women</option>
+  </optgroup>
+  <optgroup label="── Doubles ──">
+    <option value="Doubles Men">Doubles Men</option>
+    <option value="Doubles Women">Doubles Women</option>
+    <option value="Doubles Mix">Doubles Mix</option>
+    <option value="Doubles Pro Men">Doubles Pro Men</option>
+    <option value="Doubles Pro Women">Doubles Pro Women</option>
+    <option value="Doubles Pro Mix">Doubles Pro Mix</option>
+  </optgroup>
+</template>
+
 <div class="main">
 
   <!-- LIST TAB -->
@@ -462,17 +393,18 @@ header h1 {
           <select class="filter-select" id="filter-division">
             <option value="">All Divisions</option>
             <optgroup label="── Single ──">
-              <option value="Single">Single</option>
-              <option value="Single Pro Men">Single Pro Men</option>
-              <option value="Single Pro Women">Single Pro Women</option>
               <option value="Single Men">Single Men</option>
               <option value="Single Women">Single Women</option>
+              <option value="Single Pro Men">Single Pro Men</option>
+              <option value="Single Pro Women">Single Pro Women</option>
             </optgroup>
             <optgroup label="── Doubles ──">
               <option value="Doubles Men">Doubles Men</option>
               <option value="Doubles Women">Doubles Women</option>
               <option value="Doubles Mix">Doubles Mix</option>
-              <option value="Doubles Pro">Doubles Pro</option>
+              <option value="Doubles Pro Men">Doubles Pro Men</option>
+              <option value="Doubles Pro Women">Doubles Pro Women</option>
+              <option value="Doubles Pro Mix">Doubles Pro Mix</option>
             </optgroup>
           </select>
         </div>
@@ -543,22 +475,7 @@ header h1 {
         </div>
         <div class="form-group">
           <label>Division *</label>
-          <select id="add-division">
-            <option value="">Select division</option>
-            <optgroup label="Single">
-              <option value="Single">Single</option>
-              <option value="Single Pro Men">Single Pro Men</option>
-              <option value="Single Pro Women">Single Pro Women</option>
-              <option value="Single Men">Single Men</option>
-              <option value="Single Women">Single Women</option>
-            </optgroup>
-            <optgroup label="Doubles">
-              <option value="Doubles Men">Doubles Men</option>
-              <option value="Doubles Women">Doubles Women</option>
-              <option value="Doubles Mix">Doubles Mix</option>
-              <option value="Doubles Pro">Doubles Pro</option>
-            </optgroup>
-          </select>
+          <select id="add-division"></select>
         </div>
         <div class="form-group">
           <label>Race Time <span style="color:#555;font-weight:400;text-transform:none;">(enter after race)</span></label>
@@ -583,13 +500,11 @@ header h1 {
 <div class="modal-overlay" id="detail-modal">
   <div class="modal">
     <div class="modal-drag"></div>
-
     <div class="detail-header">
       <div class="detail-color-bar" id="detail-color-bar"></div>
       <div class="detail-name" id="detail-name"></div>
       <div class="detail-bib" id="detail-bib" style="display:none;"></div>
     </div>
-
     <div class="detail-grid">
       <div class="detail-item">
         <div class="detail-item-label">📅 Day</div>
@@ -597,7 +512,7 @@ header h1 {
       </div>
       <div class="detail-item">
         <div class="detail-item-label">🕐 Start Time</div>
-        <div class="detail-item-value start-time" id="detail-start-time"></div>
+        <div class="detail-item-value" id="detail-start-time"></div>
       </div>
       <div class="detail-item full">
         <div class="detail-item-label">🏷 Division</div>
@@ -612,8 +527,6 @@ header h1 {
         <div class="detail-tags" id="detail-tags"></div>
       </div>
     </div>
-
-    <!-- Quick Result入力 -->
     <div class="detail-result-form">
       <label>⏱ Enter / Update Race Result</label>
       <div class="detail-result-row">
@@ -621,7 +534,6 @@ header h1 {
         <button class="btn btn-secondary btn-small" id="detail-result-save-btn">Save</button>
       </div>
     </div>
-
     <div class="detail-actions">
       <button class="btn btn-secondary" id="detail-close-btn">Close</button>
       <button class="btn btn-primary" id="detail-edit-btn">✏️ Edit</button>
@@ -660,22 +572,7 @@ header h1 {
     </div>
     <div class="form-group">
       <label>Division *</label>
-      <select id="edit-division">
-        <option value="">Select division</option>
-        <optgroup label="Single">
-          <option value="Single">Single</option>
-          <option value="Single Pro Men">Single Pro Men</option>
-          <option value="Single Pro Women">Single Pro Women</option>
-          <option value="Single Men">Single Men</option>
-          <option value="Single Women">Single Women</option>
-        </optgroup>
-        <optgroup label="Doubles">
-          <option value="Doubles Men">Doubles Men</option>
-          <option value="Doubles Women">Doubles Women</option>
-          <option value="Doubles Mix">Doubles Mix</option>
-          <option value="Doubles Pro">Doubles Pro</option>
-        </optgroup>
-      </select>
+      <select id="edit-division"></select>
     </div>
     <div class="form-group">
       <label>Race Time</label>
@@ -715,19 +612,61 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
+// ===== Division 定義（一元管理） =====
+const DIVISIONS = [
+  { group: 'Single',  value: 'Single Men' },
+  { group: 'Single',  value: 'Single Women' },
+  { group: 'Single',  value: 'Single Pro Men' },
+  { group: 'Single',  value: 'Single Pro Women' },
+  { group: 'Doubles', value: 'Doubles Men' },
+  { group: 'Doubles', value: 'Doubles Women' },
+  { group: 'Doubles', value: 'Doubles Mix' },
+  { group: 'Doubles', value: 'Doubles Pro Men' },
+  { group: 'Doubles', value: 'Doubles Pro Women' },
+  { group: 'Doubles', value: 'Doubles Pro Mix' },
+];
+
+const DIV_COLOR = {
+  'Single Men':        '#4fc3f7',
+  'Single Women':      '#f06292',
+  'Single Pro Men':    '#ce93d8',
+  'Single Pro Women':  '#f48fb1',
+  'Doubles Men':       '#80cbc4',
+  'Doubles Women':     '#ffb3c1',
+  'Doubles Mix':       '#a5d6a7',
+  'Doubles Pro Men':   '#b39ddb',
+  'Doubles Pro Women': '#f8bbd0',
+  'Doubles Pro Mix':   '#ffcc80',
+};
+
+// Division selectを動的生成（一元管理で全箇所に反映）
+function buildDivisionSelect(selectEl, selectedValue = '') {
+  const groups = {};
+  DIVISIONS.forEach(d => {
+    if (!groups[d.group]) groups[d.group] = [];
+    groups[d.group].push(d.value);
+  });
+  selectEl.innerHTML = '<option value="">Select division</option>';
+  Object.entries(groups).forEach(([grp, vals]) => {
+    const og = document.createElement('optgroup');
+    og.label = '── ' + grp + ' ──';
+    vals.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = v;
+      if (v === selectedValue) opt.selected = true;
+      og.appendChild(opt);
+    });
+    selectEl.appendChild(og);
+  });
+}
+
+// 初期化時に全selectへ適用
+buildDivisionSelect(document.getElementById('add-division'));
+buildDivisionSelect(document.getElementById('edit-division'));
+
 const DAYS = ['Thu Aug 6','Fri Aug 7','Sat Aug 8','Sun Aug 9'];
 const DAY_ORDER = Object.fromEntries(DAYS.map((d,i) => [d,i]));
-const DIV_COLOR = {
-  'Single':           '#90caf9',
-  'Single Pro Men':   '#ce93d8',
-  'Single Pro Women': '#f48fb1',
-  'Single Men':       '#4fc3f7',
-  'Single Women':     '#f06292',
-  'Doubles Men':      '#80cbc4',
-  'Doubles Women':    '#ffb3c1',
-  'Doubles Mix':      '#a5d6a7',
-  'Doubles Pro':      '#ffcc80',
-};
 
 let races            = [];
 let editingId        = null;
@@ -758,14 +697,17 @@ onSnapshot(query(collection(db,'races')), snap => {
   renderList();
   renderSchedule();
   renderTagFilters();
-  // 詳細モーダルが開いていれば更新
   if (detailId && document.getElementById('detail-modal').classList.contains('open')) {
     const updated = races.find(r => r.id === detailId);
     if (updated) populateDetail(updated);
   }
   document.getElementById('loading-overlay').style.display = 'none';
   setSyncStatus('synced');
-}, () => { setSyncStatus('error'); notify('❌ Connection error'); document.getElementById('loading-overlay').style.display = 'none'; });
+}, () => {
+  setSyncStatus('error');
+  notify('❌ Connection error');
+  document.getElementById('loading-overlay').style.display = 'none';
+});
 
 // ===== Utils =====
 function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
@@ -776,7 +718,7 @@ function notify(msg) {
   setTimeout(() => el.classList.remove('show'), 2200);
 }
 function divColor(div) { return DIV_COLOR[div] || '#90caf9'; }
-function sortKeyStartTime(r) { return (DAY_ORDER[r.day]??9) + ' ' + (r.startTime||'99:99'); }
+function sortKeyStartTime(r) { return String(DAY_ORDER[r.day]??9) + ' ' + (r.startTime||'99:99'); }
 
 // ===== Tab =====
 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -857,7 +799,7 @@ function getFiltered() {
   return list;
 }
 
-// ===== Render Card ===== （タップで詳細モーダル）
+// ===== Render Card =====
 function renderCard(race, container) {
   const card  = document.createElement('div');
   card.className = 'race-card';
@@ -884,8 +826,6 @@ function renderCard(race, container) {
     </div>
     <div class="tap-hint">Tap for details →</div>
   `;
-
-  // カード全体タップ → 詳細モーダル
   card.addEventListener('click', () => openDetailModal(race.id));
   container.appendChild(card);
 }
@@ -898,7 +838,7 @@ function populateDetail(race) {
 
   const bibEl = document.getElementById('detail-bib');
   if (race.bib) { bibEl.textContent = '#' + race.bib; bibEl.style.display = 'block'; }
-  else { bibEl.style.display = 'none'; }
+  else bibEl.style.display = 'none';
 
   document.getElementById('detail-day').textContent = race.day || '—';
 
@@ -914,7 +854,6 @@ function populateDetail(race) {
   if (race.time) { timeEl.textContent = race.time; timeEl.className = 'detail-item-value highlight'; }
   else { timeEl.textContent = 'Not recorded yet'; timeEl.className = 'detail-item-value empty'; }
 
-  // Tags
   const tagsWrap = document.getElementById('detail-tags-wrap');
   const tagsEl   = document.getElementById('detail-tags');
   if (race.tags && race.tags.length) {
@@ -923,8 +862,6 @@ function populateDetail(race) {
   } else {
     tagsWrap.style.display = 'none';
   }
-
-  // Result input に現在値をセット
   document.getElementById('detail-result-input').value = race.time || '';
 }
 
@@ -943,22 +880,14 @@ document.getElementById('detail-modal').addEventListener('click', e => {
   if (e.target === document.getElementById('detail-modal'))
     document.getElementById('detail-modal').classList.remove('open');
 });
-
-// 詳細モーダルからResult保存
 document.getElementById('detail-result-save-btn').addEventListener('click', async () => {
   const val    = document.getElementById('detail-result-input').value.trim();
   const target = races.find(r => r.id === detailId);
-  if (target) {
-    target.time = val;
-    await saveRace(target);
-    notify('⏱ Result saved!');
-  }
+  if (target) { target.time = val; await saveRace(target); notify('⏱ Result saved!'); }
 });
 document.getElementById('detail-result-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') document.getElementById('detail-result-save-btn').click();
 });
-
-// 詳細モーダル → Editモーダルへ
 document.getElementById('detail-edit-btn').addEventListener('click', () => {
   document.getElementById('detail-modal').classList.remove('open');
   openEditModal(detailId);
@@ -1049,7 +978,7 @@ document.getElementById('submit-add-btn').addEventListener('click', async () => 
   ['add-name','add-bib','add-time'].forEach(id => document.getElementById(id).value='');
   document.getElementById('add-day').value='';
   document.getElementById('add-start-time').value='';
-  document.getElementById('add-division').value='';
+  buildDivisionSelect(document.getElementById('add-division'));
   addTags=[]; renderAddTags();
 });
 
@@ -1084,8 +1013,8 @@ function openEditModal(id) {
   document.getElementById('edit-bib').value        = race.bib       ||'';
   document.getElementById('edit-day').value        = race.day       ||'';
   document.getElementById('edit-start-time').value = race.startTime ||'';
-  document.getElementById('edit-division').value   = race.division  ||'';
   document.getElementById('edit-time').value       = race.time      ||'';
+  buildDivisionSelect(document.getElementById('edit-division'), race.division||'');
   renderEditTags();
   document.getElementById('edit-modal').classList.add('open');
 }
