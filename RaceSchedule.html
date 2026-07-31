@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Race Schedule Manager</title>
+<style>
+/* ===== Reset & Base ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  background: #0d0d0d;
+  color: #f0f0f0;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ===== Header ===== */
+header {
+  background: linear-gradient(135deg, #1a1a1a, #222);
+  border-bottom: 2px solid #f5c518;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(245,197,24,0.15);
+}
+header h1 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f5c518;
+  flex: 1;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.header-icon { font-size: 1.3rem; }
+
+/* ===== Tab Nav ===== */
+.tab-nav {
+  display: flex;
+  background: #111;
+  border-bottom: 1px solid #333;
+  position: sticky;
+  top: 53px;
+  z-index: 190;
+}
+.tab-btn {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #888;
+  padding: 10px 4px;
+  cursor: pointer;
+  font-size: 0.68rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.tab-btn .tab-icon { font-size: 1.1rem; }
+.tab-btn.active {
+  color: #f5c518;
+  border-bottom-color: #f5c518;
+  background: rgba(245,197,24,0.06);
+}
+.tab-btn:hover { color: #f5c518; background: rgba(245,197,24,0.04); }
+
+/* ===== Main ===== */
+.main { min-height: calc(100vh - 100px); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ===== Section ===== */
+.section {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px;
+}
+.section-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f5c518;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid #2a2a2a;
+  padding-bottom: 10px;
+}
+
+/* ===== Form ===== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.form-group label {
+  font-size: 0.72rem;
+  color: #f5c518;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  color: #f0f0f0;
+  outline: none;
+  font-family: inherit;
+  width: 100%;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #f5c518;
+  box-shadow: 0 0 0 2px rgba(245,197,24,0.12);
+}
+.form-group select option { background: #1a1a1a; }
+.form-group select optgroup { background: #1a1a1a; color: #f5c518; font-style: normal; }
+.form-group input::placeholder { color: #555; }
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 11px 18px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: #f5c518;
+  color: #0d0d0d;
+  width: 100%;
+}
+.btn-primary:hover { background: #ffd740; }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-secondary {
+  background: #222;
+  color: #f5c518;
+  border: 1px solid #f5c518;
+}
+.btn-secondary:hover { background: rgba(245,197,24,0.1); }
+
+.btn-danger {
+  background: #2a1010;
+  color: #e74c3c;
+  border: 1px solid #e74c3c44;
+  padding: 7px 12px;
+  font-size: 0.78rem;
+}
+.btn-danger:hover { background: #3a1515; }
+
+.btn-small {
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  border-radius: 6px;
+}
+
+.btn-icon {
+  background: none;
+  border: 1px solid #333;
+  color: #888;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.btn-icon:hover { border-color: #f5c518; color: #f5c518; }
+
+/* ===== Tag Input ===== */
+.tag-input-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.tag-input-wrap input { flex: 1; }
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(245,197,24,0.12);
+  border: 1px solid rgba(245,197,24,0.35);
+  color: #f5c518;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.tag-chip .tag-del {
+  cursor: pointer;
+  opacity: 0.7;
+  font-size: 0.7rem;
+  margin-left: 2px;
+}
+.tag-chip .tag-del:hover { opacity: 1; }
+
+/* ===== Race Cards ===== */
+.race-card {
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #f5c518;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  transition: all 0.2s;
+  position: relative;
+}
+.race-card:hover { background: #161616; }
+
+.race-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.race-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f0f0f0;
+  flex: 1;
+}
+.bib-badge {
+  background: #f5c518;
+  color: #0d0d0d;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.race-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.meta-chip {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.meta-day  { background: #1a2a1a; color: #4caf50;  border: 1px solid #2a3a2a; }
+.meta-div  { background: #1a1a2a; color: #90caf9;  border: 1px solid #2a2a3a; }
+.meta-time { background: #2a1a0a; color: #ff9800;  border: 1px solid #3a2a1a; }
+.meta-tag  { background: rgba(245,197,24,0.08); color: #f5c518; border: 1px solid rgba(245,197,24,0.2); }
+
+.race-card-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  justify-content: flex-end;
+}
+
+/* ===== Division Color Coding ===== */
+.div-single          { color: #90caf9; }
+.div-single-pro-men  { color: #ce93d8; }
+.div-single-pro-women{ color: #f48fb1; }
+.div-single-men      { color: #4fc3f7; }
+.div-single-women    { color: #f06292; }
+.div-doubles-men     { color: #80cbc4; }
+.div-doubles-women   { color: #ffb3c1; }
+.div-doubles-mix     { color: #a5d6a7; }
+.div-doubles-pro     { color: #ffcc80; }
+
+/* ===== Filter Bar ===== */
+.filter-bar {
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.filter-label {
+  font-size: 0.68rem;
+  color: #888;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+.filter-select {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 0.78rem;
+  color: #f0f0f0;
+  outline: none;
+  font-family: inherit;
+  -webkit-appearance: none;
+  cursor: pointer;
+  flex: 1;
+  min-width: 100px;
+  transition: border-color 0.2s;
+}
+.filter-select:focus { border-color: #f5c518; }
+.filter-select option,
+.filter-select optgroup { background: #1a1a1a; }
+
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.sort-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.sort-btn {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #888;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-family: inherit;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.sort-btn.active { border-color: #f5c518; color: #f5c518; background: rgba(245,197,24,0.08); }
+.sort-btn:hover  { border-color: #f5c518; color: #f5c518; }
+
+/* ===== Tag Filter ===== */
+.tag-filter-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-filter-chip {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: #888;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tag-filter-chip.active {
+  background: rgba(245,197,24,0.12);
+  border-color: rgba(245,197,24,0.4);
+  color: #f5c518;
+}
+
+/* ===== Modal ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 400;
+  align-items: flex-end;
+  justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-top: 2px solid #f5c518;
+  border-radius: 20px 20px 0 0;
+  padding: 20px 16px 32px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+.modal-drag {
+  width: 40px;
+  height: 4px;
+  background: #333;
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+.modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #f5c518;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+.modal-actions .btn { flex: 1; }
+
+/* ===== Empty State ===== */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #555;
+}
+.empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
+.empty-state p { font-size: 0.85rem; }
+
+/* ===== Stats Bar ===== */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 12px;
+}
+.stat-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  padding: 12px 8px;
+  text-align: center;
+}
+.stat-num {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #f5c518;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.65rem;
+  color: #666;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ===== Schedule Day Group ===== */
+.day-group { margin-bottom: 16px; }
+.day-group-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 12px 8px;
+}
+.day-group-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, #f5c518, transparent);
+}
+.day-group-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #f5c518;
+  white-space: nowrap;
+}
+.day-group-count {
+  font-size: 0.7rem;
+  color: #666;
+  background: #222;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* ===== Inline Time Form ===== */
+.inline-time-form {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #2a2a2a;
+}
+.inline-time-form input {
+  flex: 1;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 0.88rem;
+  color: #f0f0f0;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+.inline-time-form input:focus { border-color: #f5c518; }
+
+/* ===== Search ===== */
+.search-wrap {
+  position: relative;
+  margin: 12px;
+}
+.search-wrap input {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 10px 12px 10px 36px;
+  font-size: 0.88rem;
+  color: #f0f0f0;
+  outline: none;
+  width: 100%;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+.search-wrap input:focus { border-color: #f5c518; }
+.search-wrap input::placeholder { color: #555; }
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #555;
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+/* ===== Notification ===== */
+.notification {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: #f5c518;
+  color: #0d0d0d;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  z-index: 600;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(245,197,24,0.3);
+  pointer-events: none;
+}
+.notification.show { transform: translateX(-50%) translateY(0); }
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+@media (min-width: 480px) {
+  .modal { border-radius: 16px; margin: 20px; }
+  .modal-overlay { align-items: center; }
+  .modal-drag { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="notification" id="notification"></div>
+
+<!-- Header -->
+<header>
+  <span class="header-icon">🏁</span>
+  <h1>Race Schedule Manager</h1>
+</header>
+
+<!-- Tab Nav -->
+<nav class="tab-nav">
+  <button class="tab-btn active" data-tab="list">
+    <span class="tab-icon">📋</span>List
+  </button>
+  <button class="tab-btn" data-tab="schedule">
+    <span class="tab-icon">📅</span>Schedule
+  </button>
+  <button class="tab-btn" data-tab="add">
+    <span class="tab-icon">➕</span>Add
+  </button>
+</nav>
+
+<div class="main">
+
+  <!-- ===== LIST TAB ===== -->
+  <div class="tab-content active" id="tab-list">
+
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-timed">0</div>
+        <div class="stat-label">Timed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="stat-pending">0</div>
+        <div class="stat-label">Pending</div>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search name, bib, tag...">
+    </div>
+
+    <div class="filter-bar">
+      <!-- Day & Division filter -->
+      <div>
+        <div class="filter-label">Filter</div>
+        <div class="filter-row">
+          <select class="filter-select" id="filter-day">
+            <option value="">All Days</option>
+            <option value="Thu Aug 6">Thu Aug 6</option>
+            <option value="Fri Aug 7">Fri Aug 7</option>
+            <option value="Sat Aug 8">Sat Aug 8</option>
+            <option value="Sun Aug 9">Sun Aug 9</option>
+          </select>
+          <select class="filter-select" id="filter-division">
+            <option value="">All Divisions</option>
+            <optgroup label="── Single ──">
+              <option value="Single">Single</option>
+              <option value="Single Pro Men">Single Pro Men</option>
+              <option value="Single Pro Women">Single Pro Women</option>
+              <option value="Single Men">Single Men</option>
+              <option value="Single Women">Single Women</option>
+            </optgroup>
+            <optgroup label="── Doubles ──">
+              <option value="Doubles Men">Doubles Men</option>
+              <option value="Doubles Women">Doubles Women</option>
+              <option value="Doubles Mix">Doubles Mix</option>
+              <option value="Doubles Pro">Doubles Pro</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tag filter -->
+      <div>
+        <div class="filter-label">Tags</div>
+        <div class="tag-filter-wrap" id="tag-filter-wrap">
+          <span style="font-size:0.75rem;color:#555;">No tags yet</span>
+        </div>
+      </div>
+
+      <!-- Sort -->
+      <div>
+        <div class="filter-label">Sort</div>
+        <div class="sort-row">
+          <button class="sort-btn active" data-sort="day">📅 Day</button>
+          <button class="sort-btn" data-sort="name">🔤 Name</button>
+          <button class="sort-btn" data-sort="bib">🔢 Bib</button>
+          <button class="sort-btn" data-sort="time">⏱ Time</button>
+          <button class="sort-btn" data-sort="division">🏷 Div</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="race-list" style="padding: 0 12px 80px;"></div>
+  </div>
+
+  <!-- ===== SCHEDULE TAB ===== -->
+  <div class="tab-content" id="tab-schedule">
+    <div style="padding-bottom: 80px;">
+      <!-- Day selector -->
+      <div style="display:flex; gap:6px; padding:12px; overflow-x:auto; -webkit-overflow-scrolling:touch;">
+        <button class="sort-btn active" data-day-tab="" style="flex-shrink:0;">All</button>
+        <button class="sort-btn" data-day-tab="Thu Aug 6" style="flex-shrink:0;">Thu 8/6</button>
+        <button class="sort-btn" data-day-tab="Fri Aug 7" style="flex-shrink:0;">Fri 8/7</button>
+        <button class="sort-btn" data-day-tab="Sat Aug 8" style="flex-shrink:0;">Sat 8/8</button>
+        <button class="sort-btn" data-day-tab="Sun Aug 9" style="flex-shrink:0;">Sun 8/9</button>
+      </div>
+      <div id="schedule-view"></div>
+    </div>
+  </div>
+
+  <!-- ===== ADD TAB ===== -->
+  <div class="tab-content" id="tab-add">
+    <div style="padding-bottom: 80px;">
+      <div class="section">
+        <div class="section-title">➕ Add New Entry</div>
+
+        <div class="form-group">
+          <label>Name *</label>
+          <input type="text" id="add-name" placeholder="Athlete / Team name">
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label>Bib Number</label>
+            <input type="text" id="add-bib" placeholder="e.g. 42">
+          </div>
+          <div class="form-group">
+            <label>Day *</label>
+            <select id="add-day">
+              <option value="">Select day</option>
+              <option value="Thu Aug 6">Thu Aug 6</option>
+              <option value="Fri Aug 7">Fri Aug 7</option>
+              <option value="Sat Aug 8">Sat Aug 8</option>
+              <option value="Sun Aug 9">Sun Aug 9</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Division *</label>
+          <select id="add-division">
+            <option value="">Select division</option>
+            <optgroup label="Single">
+              <option value="Single">Single</option>
+              <option value="Single Pro Men">Single Pro Men</option>
+              <option value="Single Pro Women">Single Pro Women</option>
+              <option value="Single Men">Single Men</option>
+              <option value="Single Women">Single Women</option>
+            </optgroup>
+            <optgroup label="Doubles">
+              <option value="Doubles Men">Doubles Men</option>
+              <option value="Doubles Women">Doubles Women</option>
+              <option value="Doubles Mix">Doubles Mix</option>
+              <option value="Doubles Pro">Doubles Pro</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Race Time <span style="color:#555;font-weight:400;text-transform:none;">(optional — enter after race)</span></label>
+          <input type="text" id="add-time" placeholder="e.g. 1:23.456 or 45.78">
+        </div>
+
+        <div class="form-group">
+          <label>Tags <span style="color:#555;font-weight:400;text-transform:none;">(optional)</span></label>
+          <div class="tag-input-wrap">
+            <input type="text" id="add-tag-input" placeholder="Type tag and press ＋">
+            <button class="btn btn-secondary btn-small" id="add-tag-btn">＋</button>
+          </div>
+          <div class="tag-list" id="add-tag-list"></div>
+        </div>
+
+        <button class="btn btn-primary" id="submit-add-btn">🏁 Add Entry</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /.main -->
+
+<!-- ===== Edit Modal ===== -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <div class="modal-drag"></div>
+    <div class="modal-title">✏️ Edit Entry</div>
+
+    <div class="form-group">
+      <label>Name *</label>
+      <input type="text" id="edit-name" placeholder="Athlete / Team name">
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-group">
+        <label>Bib Number</label>
+        <input type="text" id="edit-bib" placeholder="e.g. 42">
+      </div>
+      <div class="form-group">
+        <label>Day *</label>
+        <select id="edit-day">
+          <option value="">Select day</option>
+          <option value="Thu Aug 6">Thu Aug 6</option>
+          <option value="Fri Aug 7">Fri Aug 7</option>
+          <option value="Sat Aug 8">Sat Aug 8</option>
+          <option value="Sun Aug 9">Sun Aug 9</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Division *</label>
+      <select id="edit-division">
+        <option value="">Select division</option>
+        <optgroup label="Single">
+          <option value="Single">Single</option>
+          <option value="Single Pro Men">Single Pro Men</option>
+          <option value="Single Pro Women">Single Pro Women</option>
+          <option value="Single Men">Single Men</option>
+          <option value="Single Women">Single Women</option>
+        </optgroup>
+        <optgroup label="Doubles">
+          <option value="Doubles Men">Doubles Men</option>
+          <option value="Doubles Women">Doubles Women</option>
+          <option value="Doubles Mix">Doubles Mix</option>
+          <option value="Doubles Pro">Doubles Pro</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Race Time</label>
+      <input type="text" id="edit-time" placeholder="e.g. 1:23.456">
+    </div>
+
+    <div class="form-group">
+      <label>Tags</label>
+      <div class="tag-input-wrap">
+        <input type="text" id="edit-tag-input" placeholder="Type tag and press ＋">
+        <button class="btn btn-secondary btn-small" id="edit-tag-btn">＋</button>
+      </div>
+      <div class="tag-list" id="edit-tag-list"></div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="edit-cancel-btn">Cancel</button>
+      <button class="btn btn-primary" id="edit-save-btn">💾 Save</button>
+    </div>
+    <div style="margin-top:10px;">
+      <button class="btn btn-danger" id="edit-delete-btn" style="width:100%;">🗑 Delete Entry</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== Constants =====
+const DAYS = ['Thu Aug 6','Fri Aug 7','Sat Aug 8','Sun Aug 9'];
+const DAY_ORDER = Object.fromEntries(DAYS.map((d,i) => [d,i]));
+
+const DIVISIONS = [
+  'Single',
+  'Single Pro Men',
+  'Single Pro Women',
+  'Single Men',
+  'Single Women',
+  'Doubles Men',
+  'Doubles Women',
+  'Doubles Mix',
+  'Doubles Pro',
+];
+
+const DIV_COLOR = {
+  'Single':           '#90caf9',
+  'Single Pro Men':   '#ce93d8',
+  'Single Pro Women': '#f48fb1',
+  'Single Men':       '#4fc3f7',
+  'Single Women':     '#f06292',
+  'Doubles Men':      '#80cbc4',
+  'Doubles Women':    '#ffb3c1',
+  'Doubles Mix':      '#a5d6a7',
+  'Doubles Pro':      '#ffcc80',
+};
+
+// ===== State =====
+let races       = JSON.parse(localStorage.getItem('raceSchedule_v2') || '[]');
+let editingId   = null;
+let addTags     = [];
+let editTags    = [];
+let activeSort  = 'day';
+let activeTagFilters = new Set();
+let scheduleDay = '';
+
+// ===== Persist =====
+function save() {
+  localStorage.setItem('raceSchedule_v2', JSON.stringify(races));
+}
+
+// ===== Utils =====
+function genId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+function esc(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function notify(msg) {
+  const el = document.getElementById('notification');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+function divColor(div) {
+  return DIV_COLOR[div] || '#90caf9';
+}
+
+// ===== Tab Switch =====
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    if (btn.dataset.tab === 'list')     renderList();
+    if (btn.dataset.tab === 'schedule') renderSchedule();
+  });
+});
+
+// ===== Sort Buttons =====
+document.querySelectorAll('[data-sort]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-sort]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeSort = btn.dataset.sort;
+    renderList();
+  });
+});
+
+// ===== Schedule Day Tabs =====
+document.querySelectorAll('[data-day-tab]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-day-tab]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    scheduleDay = btn.dataset.dayTab;
+    renderSchedule();
+  });
+});
+
+// ===== Filter Events =====
+document.getElementById('filter-day').addEventListener('change', renderList);
+document.getElementById('filter-division').addEventListener('change', renderList);
+document.getElementById('search-input').addEventListener('input', renderList);
+
+// ===== Tag Filter Render =====
+function renderTagFilters() {
+  const allTags = new Set();
+  races.forEach(r => (r.tags || []).forEach(t => allTags.add(t)));
+  const wrap = document.getElementById('tag-filter-wrap');
+  if (allTags.size === 0) {
+    wrap.innerHTML = '<span style="font-size:0.75rem;color:#555;">No tags yet</span>';
+    return;
+  }
+  wrap.innerHTML = '';
+  [...allTags].sort().forEach(tag => {
+    const chip = document.createElement('span');
+    chip.className = 'tag-filter-chip' + (activeTagFilters.has(tag) ? ' active' : '');
+    chip.textContent = '#' + tag;
+    chip.addEventListener('click', () => {
+      activeTagFilters.has(tag) ? activeTagFilters.delete(tag) : activeTagFilters.add(tag);
+      renderTagFilters();
+      renderList();
+    });
+    wrap.appendChild(chip);
+  });
+}
+
+// ===== Get Filtered & Sorted =====
+function getFiltered() {
+  const dayF  = document.getElementById('filter-day').value;
+  const divF  = document.getElementById('filter-division').value;
+  const query = document.getElementById('search-input').value.trim().toLowerCase();
+
+  let list = [...races];
+  if (dayF)  list = list.filter(r => r.day === dayF);
+  if (divF)  list = list.filter(r => r.division === divF);
+  if (query) list = list.filter(r =>
+    r.name.toLowerCase().includes(query) ||
+    (r.bib || '').toLowerCase().includes(query) ||
+    (r.tags || []).some(t => t.toLowerCase().includes(query))
+  );
+  if (activeTagFilters.size > 0) {
+    list = list.filter(r =>
+      [...activeTagFilters].every(t => (r.tags || []).includes(t))
+    );
+  }
+
+  list.sort((a, b) => {
+    if (activeSort === 'day') {
+      const dc = (DAY_ORDER[a.day] ?? 99) - (DAY_ORDER[b.day] ?? 99);
+      return dc !== 0 ? dc : a.name.localeCompare(b.name);
+    }
+    if (activeSort === 'name')     return a.name.localeCompare(b.name);
+    if (activeSort === 'bib')      return (a.bib||'').localeCompare(b.bib||'', undefined, {numeric:true});
+    if (activeSort === 'division') return (a.division||'').localeCompare(b.division||'');
+    if (activeSort === 'time') {
+      const ta = a.time||'zzz', tb = b.time||'zzz';
+      return ta.localeCompare(tb);
+    }
+    return 0;
+  });
+  return list;
+}
+
+// ===== Render Card =====
+function renderCard(race, container) {
+  const card = document.createElement('div');
+  card.className = 'race-card';
+  card.dataset.id = race.id;
+
+  const color   = divColor(race.division);
+  card.style.borderLeftColor = color;
+
+  const tagsHtml = (race.tags || [])
+    .map(t => `<span class="meta-chip meta-tag">#${esc(t)}</span>`)
+    .join('');
+
+  const timeHtml = race.time
+    ? `<span class="meta-chip meta-time">⏱ ${esc(race.time)}</span>`
+    : `<span style="font-size:0.7rem;color:#555;font-style:italic;">No time yet</span>`;
+
+  card.innerHTML = `
+    <div class="race-card-header">
+      <div class="race-name">${esc(race.name)}</div>
+      ${race.bib ? `<span class="bib-badge">#${esc(race.bib)}</span>` : ''}
+    </div>
+    <div class="race-card-meta">
+      <span class="meta-chip meta-day">📅 ${esc(race.day || '—')}</span>
+      <span class="meta-chip meta-div" style="color:${color};background:${color}18;border-color:${color}44;">${esc(race.division || '—')}</span>
+      ${timeHtml}
+      ${tagsHtml}
+    </div>
+    <div class="race-card-actions">
+      <button class="btn-icon btn-time-quick" data-id="${race.id}">⏱ Time</button>
+      <button class="btn-icon btn-edit" data-id="${race.id}">✏️ Edit</button>
+    </div>
+    <div class="inline-time-form" id="time-form-${race.id}" style="display:none;">
+      <input type="text" placeholder="e.g. 1:23.456" id="time-input-${race.id}" value="${esc(race.time||'')}">
+      <button class="btn btn-secondary btn-small btn-time-save" data-id="${race.id}">Save</button>
+      <button class="btn-icon btn-time-cancel" data-id="${race.id}">✕</button>
+    </div>
+  `;
+
+  // Quick time toggle
+  card.querySelector('.btn-time-quick').addEventListener('click', e => {
+    e.stopPropagation();
+    const form = document.getElementById('time-form-' + race.id);
+    const isOpen = form.style.display !== 'none';
+    form.style.display = isOpen ? 'none' : 'flex';
+    if (!isOpen) document.getElementById('time-input-' + race.id).focus();
+  });
+
+  // Time save
+  card.querySelector('.btn-time-save').addEventListener('click', e => {
+    e.stopPropagation();
+    const val = document.getElementById('time-input-' + race.id).value.trim();
+    const idx = races.findIndex(r => r.id === race.id);
+    if (idx !== -1) {
+      races[idx].time = val;
+      save();
+      notify('⏱ Time saved!');
+      renderList();
+      renderSchedule();
+    }
+  });
+
+  // Time cancel
+  card.querySelector('.btn-time-cancel').addEventListener('click', e => {
+    e.stopPropagation();
+    document.getElementById('time-form-' + race.id).style.display = 'none';
+  });
+
+  // Enter key
+  const ti = document.getElementById('time-input-' + race.id);
+  if (ti) ti.addEventListener('keydown', e => {
+    if (e.key === 'Enter') card.querySelector('.btn-time-save').click();
+  });
+
+  // Edit
+  card.querySelector('.btn-edit').addEventListener('click', e => {
+    e.stopPropagation();
+    openEditModal(race.id);
+  });
+
+  container.appendChild(card);
+}
+
+// ===== Render List =====
+function renderList() {
+  const list      = getFiltered();
+  const container = document.getElementById('race-list');
+  container.innerHTML = '';
+
+  document.getElementById('stat-total').textContent   = races.length;
+  document.getElementById('stat-timed').textContent   = races.filter(r => r.time).length;
+  document.getElementById('stat-pending').textContent = races.filter(r => !r.time).length;
+
+  renderTagFilters();
+
+  if (list.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">🏁</div>
+        <p>No entries found.<br>Tap ➕ Add to register a race!</p>
+      </div>`;
+    return;
+  }
+  list.forEach(race => renderCard(race, container));
+}
+
+// ===== Render Schedule =====
+function renderSchedule() {
+  const view = document.getElementById('schedule-view');
+  view.innerHTML = '';
+
+  const days = scheduleDay ? [scheduleDay] : DAYS;
+  let hasAny = false;
+
+  days.forEach(day => {
+    const dayRaces = races
+      .filter(r => r.day === day)
+      .sort((a, b) => {
+        if (a.time && b.time) return a.time.localeCompare(b.time);
+        if (a.time) return -1;
+        if (b.time) return 1;
+        return a.name.localeCompare(b.name);
+      });
+
+    if (dayRaces.length === 0) return;
+    hasAny = true;
+
+    const group = document.createElement('div');
+    group.className = 'day-group';
+
+    group.innerHTML = `
+      <div class="day-group-header">
+        <div class="day-group-label">📅 ${esc(day)}</div>
+        <div class="day-group-line"></div>
+        <div class="day-group-count">${dayRaces.length} entries</div>
+      </div>
+    `;
+
+    const cardsWrap = document.createElement('div');
+    cardsWrap.style.padding = '0 12px';
+    dayRaces.forEach(race => renderCard(race, cardsWrap));
+    group.appendChild(cardsWrap);
+    view.appendChild(group);
+  });
+
+  if (!hasAny) {
+    view.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">📅</div>
+        <p>No entries${scheduleDay ? ' for ' + esc(scheduleDay) : ' yet'}.</p>
+      </div>`;
+  }
+}
+
+// ===== Add Tag (Add Form) =====
+function renderAddTags() {
+  const list = document.getElementById('add-tag-list');
+  list.innerHTML = '';
+  addTags.forEach((tag, i) => {
+    const chip = document.createElement('span');
+    chip.className = 'tag-chip';
+    chip.innerHTML = `#${esc(tag)} <span class="tag-del">✕</span>`;
+    chip.querySelector('.tag-del').addEventListener('click', () => {
+      addTags.splice(i, 1); renderAddTags();
+    });
+    list.appendChild(chip);
+  });
+}
+
+function pushAddTag() {
+  const input = document.getElementById('add-tag-input');
+  const val   = input.value.trim().replace(/\s+/g, '-');
+  if (val && !addTags.includes(val)) { addTags.push(val); renderAddTags(); }
+  input.value = '';
+  input.focus();
+}
+document.getElementById('add-tag-btn').addEventListener('click', pushAddTag);
+document.getElementById('add-tag-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); pushAddTag(); }
+});
+
+// ===== Submit Add =====
+document.getElementById('submit-add-btn').addEventListener('click', () => {
+  const name     = document.getElementById('add-name').value.trim();
+  const bib      = document.getElementById('add-bib').value.trim();
+  const day      = document.getElementById('add-day').value;
+  const division = document.getElementById('add-division').value;
+  const time     = document.getElementById('add-time').value.trim();
+
+  if (!name)     { notify('⚠️ Name is required');           return; }
+  if (!day)      { notify('⚠️ Please select a day');        return; }
+  if (!division) { notify('⚠️ Please select a division');   return; }
+
+  races.push({
+    id: genId(), name, bib, day, division,
+    time: time || '',
+    tags: [...addTags],
+    createdAt: new Date().toISOString()
+  });
+  save();
+  notify('✅ Entry added!');
+
+  // Reset
+  ['add-name','add-bib','add-time'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('add-day').value      = '';
+  document.getElementById('add-division').value = '';
+  addTags = [];
+  renderAddTags();
+  renderList();
+  renderTagFilters();
+});
+
+// ===== Edit Tags =====
+function renderEditTags() {
+  const list = document.getElementById('edit-tag-list');
+  list.innerHTML = '';
+  editTags.forEach((tag, i) => {
+    const chip = document.createElement('span');
+    chip.className = 'tag-chip';
+    chip.innerHTML = `#${esc(tag)} <span class="tag-del">✕</span>`;
+    chip.querySelector('.tag-del').addEventListener('click', () => {
+      editTags.splice(i, 1); renderEditTags();
+    });
+    list.appendChild(chip);
+  });
+}
+
+function pushEditTag() {
+  const input = document.getElementById('edit-tag-input');
+  const val   = input.value.trim().replace(/\s+/g, '-');
+  if (val && !editTags.includes(val)) { editTags.push(val); renderEditTags(); }
+  input.value = '';
+  input.focus();
+}
+document.getElementById('edit-tag-btn').addEventListener('click', pushEditTag);
+document.getElementById('edit-tag-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); pushEditTag(); }
+});
+
+// ===== Open Edit Modal =====
+function openEditModal(id) {
+  const race = races.find(r => r.id === id);
+  if (!race) return;
+  editingId = id;
+  editTags  = [...(race.tags || [])];
+
+  document.getElementById('edit-name').value     = race.name     || '';
+  document.getElementById('edit-bib').value      = race.bib      || '';
+  document.getElementById('edit-day').value      = race.day      || '';
+  document.getElementById('edit-division').value = race.division || '';
+  document.getElementById('edit-time').value     = race.time     || '';
+  renderEditTags();
+  document.getElementById('edit-modal').classList.add('open');
+}
+
+document.getElementById('edit-cancel-btn').addEventListener('click', () => {
+  document.getElementById('edit-modal').classList.remove('open');
+});
+document.getElementById('edit-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('edit-modal'))
+    document.getElementById('edit-modal').classList.remove('open');
+});
+
+// ===== Save Edit =====
+document.getElementById('edit-save-btn').addEventListener('click', () => {
+  const name     = document.getElementById('edit-name').value.trim();
+  const bib      = document.getElementById('edit-bib').value.trim();
+  const day      = document.getElementById('edit-day').value;
+  const division = document.getElementById('edit-division').value;
+  const time     = document.getElementById('edit-time').value.trim();
+
+  if (!name)     { notify('⚠️ Name is required');         return; }
+  if (!day)      { notify('⚠️ Please select a day');      return; }
+  if (!division) { notify('⚠️ Please select a division'); return; }
+
+  const idx = races.findIndex(r => r.id === editingId);
+  if (idx !== -1) {
+    races[idx] = { ...races[idx], name, bib, day, division, time, tags: [...editTags] };
+    save();
+    notify('✅ Entry updated!');
+    document.getElementById('edit-modal').classList.remove('open');
+    renderList();
+    renderSchedule();
+    renderTagFilters();
+  }
+});
+
+// ===== Delete =====
+document.getElementById('edit-delete-btn').addEventListener('click', () => {
+  if (!confirm('Delete this entry?')) return;
+  races = races.filter(r => r.id !== editingId);
+  save();
+  notify('🗑 Entry deleted');
+  document.getElementById('edit-modal').classList.remove('open');
+  renderList();
+  renderSchedule();
+  renderTagFilters();
+});
+
+// ===== Init =====
+renderList();
+renderSchedule();
+</script>
+</body>
+</html>
